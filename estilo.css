@@ -1,0 +1,184 @@
+body{
+	background-color:white;
+}
+ p{
+ 	position: fixed;
+	
+	height: 30px;
+	bottom: 0px;
+	margin-bottom: 0px;
+
+}
+th{
+	width: 150px;
+	
+	text-align: center;
+	max-width: 180px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+ul{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    font-family: arial;
+    color:white;
+    text-align: center;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+ul li{
+    margin: 5px;
+}
+ul li:hover{
+    cursor: pointer;
+}
+ul li:hover .line{
+    width: 180px;
+}
+
+
+/****clases****/
+
+.margen{
+	margin-bottom: 20px;
+}
+
+.search{
+	margin: auto;
+}
+
+.line{
+    height: 2px;
+    width: 150px;
+    background-color: white;
+    margin-top: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    transition: all .3s;
+}
+
+.textacel {
+	transform: translateX(50%);
+}
+
+/******ID*********/
+
+#mainText{
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 40px;
+}
+
+#datos{
+	width: 120%;
+	margin: 0;
+	padding: 0px;
+}
+
+#pie{
+	width: 100%;
+	height: 20px;
+	bottom: 0px;
+	position: fixed;
+	margin: auto;
+	text-align: center;
+	}
+#tabla{
+	width: 80%;
+	overflow: auto;
+	height: 340px;
+	border-radius: 3px;
+}
+#td{
+	max-width: 150px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#MenuIcon{
+	height: 25px;
+	width: 50px;
+	position: fixed;
+	top: 180px;
+	right:50px;
+}
+
+#MenuIcon:hover{
+	cursor: pointer;
+}
+
+#MenuLine{
+	height: 4px;
+	width: 50px;
+	background-color: #181818;
+	position: absolute;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	transition: all .3s;
+}
+#MenuLine:hover{
+	width:40px;
+}
+#MenuLine::before{
+    content: '';
+    height: 4px;
+    width: 40px;
+    background-color: #181818;
+    position: absolute;
+    margin-top: 10px;
+    transition: all .3s;
+}
+#MenuIcon:hover #MenuLine::before{
+    width: 50px;
+}
+#MenuLine::after{
+    content: '';
+    height: 4px;
+    width: 40px;
+    background-color:#181818;
+    position: absolute;
+    margin-top: -10px;
+    transition: all .3s;
+}
+#MenuIcon:hover #MenuLine::after{
+    width: 50px;
+}
+#Menu{
+    height: 70%;
+    width: 180px;
+    background-color: #181818;
+    position: fixed;
+    top:25%;
+    bottom: 5%;
+    right:-300px;
+    transition: all .3s ease-in-out;
+}
+#close{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%);
+}
+#close:hover{
+    cursor: pointer;
+}
+#nuevo_ingreso{
+	margin-left: 40px;
+	font-size: 20px;
+}
+#procesado{
+	width: 60%;
+	height: 40px;
+	background-color: green;
+	margin-left: 40px;
+	font-size: 20px;
+	text-align: center;
+
+}
