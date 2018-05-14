@@ -1,0 +1,401 @@
+body{
+	background-color:white;
+}
+
+ p{
+ 	position: fixed;
+	
+	height: 30px;
+	bottom: 0px;
+	margin-bottom: 0px;
+}
+
+th{
+	width: 150px;
+	
+	text-align: center;
+	max-width: 180px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+img {
+	user-select: none;
+}
+
+/****clases****/
+
+.busquedaInicio svg {
+	margin-left: 15px;
+	transform: translateY(50%) scale(1.5,1.5);
+}
+
+.barraS {
+	text-align: right;
+	transform: translateY(50%) scale(1.5,1.5);
+}
+
+.nav-pills {
+	z-index: 10000;
+}
+
+/* Main menu */
+
+
+
+/* END Main menu */
+
+.margen{
+	margin-bottom: 20px;
+}
+
+.search{
+	margin: auto;
+}
+
+.busquedaInicio input {
+	border: 0px;
+	border-radius: 0px;
+	border-bottom: solid black 3px;
+	transition: all .3s ease-in-out;
+}
+
+.busquedaInicio input:focus {
+	outline: none;
+	box-shadow: none;
+	border-color: rgb(95,178,196);
+}
+
+.busquedaInicio path {
+	transition: all .3s ease-in-out;
+}
+
+.searcher {
+	border-radius: 0px 5px 5px 0px;
+}
+
+.nOrden {
+	margin-left: 3%;
+	font-size: 1.4em;
+	color: #000;
+}
+
+.nOrden h2 {
+	color: rgba(200,20,20,.9);
+}
+
+.pens {
+	font-size: 2em;
+	font-family: helvetica, "arial black", "arial";
+}
+
+.pens span {
+	color: rgba(200,20,20,.9);
+}
+
+.line{
+    height: 2px;
+    width: 150px;
+    background-color: white;
+    margin-top: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    transition: all .3s;
+}
+
+.estatusEstados .btn-group {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 100vh;
+	align-content: space-around;
+}
+
+.navbarMargin {
+	margin-top: 1em;
+}
+
+.modal-dialog {
+	overflow-y: initial;
+}
+
+.modal-body {
+	max-height: calc(100vh - 300px);
+	overflow-y: auto;
+}
+
+.soporteHardware h4, .soporteHardware h2, .soporteTelefonos h4, .soporteTelefonos h2 {
+	display: inline-block !important;
+}
+
+.stockTelefonos .modal-body {
+	max-height: calc(100vh - 235px);
+}
+
+.ingresoStock #fecha, .usuario #fecha {
+	text-align: center;
+}
+
+/*Scroll*/
+
+.scrollable-menu {
+    height: auto;
+    max-height: 150px;
+    overflow-x: hidden;
+}
+
+/******ID*********/
+
+#Menu .menuPrincipal {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    font-family: arial;
+    color:white;
+    text-align: center;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+	box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.6), 0 0 200px 1px rgba(255, 255, 255, 0.5);
+}
+
+#Menu {
+	display: block;
+    width: 10.5%;
+    height: 50%;
+    position: fixed;
+    top:25%;
+    bottom: 5%;
+    right:-300px;
+    transition: all .3s ease-in-out;
+}
+
+#Menu li {
+	background: rgba(20,20,20,.9);
+	width: 100%;
+	margin: 0px;
+	transition: all .3s;
+}
+
+#Menu h3, h4 {
+	margin: 0px;
+	padding: 0.6em 0.9em;
+	font-size: 1.2em;
+}
+
+#close {
+	padding: 0.9em 0.6em;
+}
+
+#Menu .menuHardwareAcc, .menuTelefonosAcc {
+	display: none;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	color: white;
+	font-size: 0.9em;
+	background: rgb(0,0,0);
+	text-decoration: none;
+	font-family: arial;
+    color:white;
+    text-align: center;
+    list-style: none;
+}
+
+#Menu li:not(#close):hover {
+	background-color: #333;
+	color: #fff;
+	transition: all .3s;
+	cursor: pointer;
+}
+
+#Menu ul li:hover .line{
+    width: 180px;
+}
+
+#mainText{
+	text-align: center;
+	margin-bottom: 3%;
+}
+
+#datos{
+	width: 120%;
+	margin: 0;
+	padding: 0px;
+}
+
+#pie{
+	width: 100%;
+	height: 20px;
+	bottom: 0px;
+	position: fixed;
+	margin: auto;
+	margin-bottom: 1%;
+	text-align: center;
+	}
+#tabla{
+	width: 80%;
+	overflow: auto;
+	height: 340px;
+	border-radius: 3px;
+}
+#td{
+	max-width: 150px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#MenuIcon{
+	height: 25px;
+	width: 50px;
+	position: fixed;
+	top: 250px;
+	right:50px;
+}
+
+#MenuIcon:hover{
+	cursor: pointer;
+}
+
+#MenuLine{
+	height: 4px;
+	width: 50px;
+	background-color: #181818;
+	position: absolute;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	transition: all .3s;
+}
+
+#MenuLine:hover{
+	width:40px;
+}
+
+#MenuLine::before{
+    content: '';
+    height: 4px;
+    width: 40px;
+    background-color: #181818;
+    position: absolute;
+    margin-top: 10px;
+    transition: all .3s;
+}
+
+#MenuIcon:hover #MenuLine::before{
+    width: 50px;
+}
+#MenuLine::after{
+    content: '';
+    height: 4px;
+    width: 40px;
+    background-color:#181818;
+    position: absolute;
+    margin-top: -10px;
+    transition: all .3s;
+}
+#MenuIcon:hover #MenuLine::after{
+    width: 50px;
+}
+
+#close {
+	cursor: pointer;
+}
+
+#close:last-child:hover {
+	cursor: auto;
+}
+
+#close img:hover {
+	cursor: pointer;
+}
+
+#nuevo_ingreso{
+	margin-left: 40px;
+	font-size: 20px;
+}
+
+#procesado{
+	width: 60%;
+	height: 40px;
+	background-color: green;
+	margin-left: 40px;
+	font-size: 20px;
+	text-align: center;
+	display: none;
+}
+
+/***** Checkboxes *****/
+
+.wrapper{
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+}
+
+.wrapper h3 {
+	margin: 0;
+	padding: 0;
+	line-height: 1;
+}
+
+.switch_box{
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
+}
+
+input[type="checkbox"].switch_1{
+	font-size: 25px;
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+	        appearance: none;
+	width: 1.75em;
+	height: 0.75em;
+	background: #ddd;
+	border-radius: 3em;
+	position: relative;
+	cursor: pointer;
+	outline: none;
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+  }
+  
+  input[type="checkbox"].switch_1:checked{
+	background: #8c9cdd;
+  }
+  
+  input[type="checkbox"].switch_1:after{
+	position: absolute;
+	content: "";
+	width: 0.75em;
+	height: 0.75em;
+	border-radius: 50%;
+	background: #fff;
+	-webkit-box-shadow: 0 0 .25em rgba(0,0,0,.3);
+	        box-shadow: 0 0 .25em rgba(0,0,0,.3);
+	-webkit-transform: scale(.7);
+	        transform: scale(.7);
+	left: 0;
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+  }
+  
+  input[type="checkbox"].switch_1:checked:after{
+	left: calc(100% - 0.75em);
+  }

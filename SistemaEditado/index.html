@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="es-ve">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="sources/css/bootstrap.min.css">
+        <link rel="stylesheet" href="sources/css/estilo.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+        <script defer src="sources/js/fontawesome-all.js"></script>
+        <title>Inventario OTIC</title>
+    </head>
+    <body>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <img id="barra" src="sources/images/barra.png" width="100%" height="100%" alt="Banner">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <h1 id="mainText">Sistema de Inventario OTIC</h1>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <form>
+                    <div class="row">
+                    <div class="col-xl-4 input-group busquedaInicio">
+                        <input type="text" class="form-control" placeholder="Búsqueda" id="buscador">
+                        <div class="searcher">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    </div>
+                    <div class="col-xl-6 barraS">
+                        <i class="fa fa-user usuarioLogin"></i>
+                    </div>
+                    </div>
+                </form>
+                <div class="row" id="bloque">
+                    <div class="col-xl-12" id="tabla">
+                        
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Modal Stock -->
+			
+            <div class="modal fade stock" id="reset" tabindex="-1" role="dialog" aria-labelledby="ingreso" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="nuevo_ingreso_stock">Nuevo Ingreso al Stock</h5>
+                            <div id="procesado">
+                                Bloque de procesado
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12" id="fecha"></div>
+                        </div>
+                            <nav class="navbar navbarMargin">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item">
+                                <a class="nav-link active" id="btnIngHard" href="#">Ingresar</a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link" id="btnAsigHard" href="#">Asignación</a>
+                                </li>
+                            </ul>
+                            </nav>
+							
+                        <!-- Modal Ingreso a Stock -->
+                        <div class="modal-body" id="ingresoStock">
+                                <form id="f_ingresoStock" action="hardware.php" method="POST">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="h_tipo_ingreso" placeholder="Tipo" required="">
+                                            
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="h_marca_ingreso" placeholder="Marca" required="">
+                                            
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="h_modelo_ingreso" placeholder="Modelo" required>
+                                        </div><br>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="h_bienes_ingreso" placeholder="Bienes" required="">
+                                            
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="h_asignado_ingreso" placeholder="Asignado:" disabled>
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="h_fechaEnt_ingreso" placeholder="Fecha de Entrada" disabled>   
+                                        </div><br>
+                                    </div>   
+                                </div> 
+                                </form>    
+                        </div>
+						
+                        <!-- Modal Asignación de Hardware -->
+                        <div class="modal-body" id="asignacionStock" style="display: none;">
+                                <form id="f_asignacionStock" method="POST">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-4 margen">
+                                            <label class="form-control" id="h_tipo_asignacion">Tipo</label>
+                                            
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <label type="text" id="h_marca_asignacion" class="form-control">Marca</label>
+                                            
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <label type="text" id="h_modelo_asignacion" class="form-control">Modelo</label>
+                                            
+                                        </div><br>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 margen">
+                                            <label type="text" id="h_bienes_asignacion" class="form-control">Bienes</label>
+                                            
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <label type="text" id="h_asigPrev_asignacion" class="form-control">Último asignado</label>
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <label type="text" id="h_fechaEnt_asignacion" class="form-control">Fecha de entrada</label>   
+                                        </div><br>
+                                    </div>
+                                <div class="row">
+                                <h2 class="col-lg-8 margen" id="asignacion_celulares">Asignación</h2>
+                                <div class="wrapper">
+                                    <div class="switch_box box_1 col-lg-4 margen">
+                                        <input type="checkbox" class="switch_1 h_operable">
+                                    </div>
+                                <h3>Inoperable</h3>
+                                </div>
+                                </div>  
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <input input type="text"  id="hInputAsig" class="form-control" name="ci_asig_h" placeholder="C.I." required="">
+                                        
+                                    </div>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text" id="hInputAsig" class="form-control" name="nombre_asig_h" placeholder="Nombre" required="">
+                                        
+                                    </div>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text" id="hInputAsig" class="form-control" name="apellido_asig_h" placeholder="Apellido" required="">
+                                    
+                                    </div>
+                                </div><br>  
+                                </div> 
+                                </form>    
+                        </div>
+                        <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Registrar</button>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+
+            <!-- Modal soporte de Hardware -->
+            <div class="modal fade soporteHardware" id="reset" tabindex="-1" role="dialog" aria-labelledby="soporteHardware" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="nuevaEntrada">Soporte de Hardware</h5>
+                            <div id="procesado">
+                                Bloque de procesado
+							</div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                            
+                        </div>
+                        <nav class="navbar navbarMargin">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                            <a class="nav-link active" id="btnEntHard" href="#">Entrada</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" id="btnSalHard" href="#">Salida</a>
+                            </li>
+                        </ul>
+                        </nav>
+                        <div class="row">
+                            <div class="col-lg-8 nOrden">
+                                <h4>Número de Orden:</h4>
+                                <span><h2>000-000-000-0</h2></span>
+                            </div>
+                            <div class="col-lg-8" id="fecha"></div>
+                        </div>
+                        <!-- Modal Entrada Hardware -->
+                        <div class="modal-body" id="entradaHardware">
+                        <form id="f_entradaHardware" method="POST">
+                                <div class="form-group" id="registro">
+                                    <div class="row">
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="tipo_entrada" placeholder="Tipo" required="">
+                                            
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="marca_entrada" placeholder="Marca" required="">
+                                            
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="modelo_entrada" placeholder="Modelo" required="">
+                                            
+                                        </div><br>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="bienes_entrada" placeholder="Bienes" required="">
+                                            
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="asignado_entrada" placeholder="Asignado" required="">
+                                            
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="encargado_entrada" placeholder="Encargado:" required="">
+                                            
+                                        </div><br>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="representante_entrada" placeholder="Entregado por: " required="">
+                                            
+                                        </div>
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="pcp_entrada" placeholder="Entrada PCP" required="">
+                                            
+                                        </div>
+                                        <div class="col-lg-4 margen">
+                                            <input type="text"  class="form-control" name="pcpFecha_entrada" placeholder="Fecha de Entrada de PCP" required="" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 margen">
+                                          <select class="form-control" name="selectMunicipio">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $pdo = new PDO('mysql:host=localhost;dbname=oticdb', 'root', '');
+
+                                            $query->prepare('SELECT * FROM Municipios');
+                                            $query->execute();
+                                            $municipios = $query->fetchAll();
+                                            
+                                            foreach($municipios as $municipio): ?>
+                                                    <option value="<?= $municipio['id_municipio']; ?>"><?= $municipio['nom_municipio']; ?></option>
+                                            <?php endforeach;
+                                            $munSel = $_POST['selectMunicipio']
+                                            ?>
+                                          </select>                                            
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <select class="form-control" name="selectParroquia">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $query->prepare('SELECT * FROM Parroquias WHERE id_municipio_padre=:munSel');
+                                            $query->bindParam(:munSel,$munSel);
+                                            $query->execute();
+                                            $parroquias = $query->fetchAll();
+                                            
+                                            foreach($parroquias as $parroquia): ?>
+                                                    <option value="<?= $parroquia['id_parroquia']; ?>"><?= $parroquia['nom_parroquia']; ?></option>
+                                            <?php endforeach; ?>
+                                            </select>  
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <select class="form-control" name="selectSede">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $query->prepare('SELECT * FROM Sedes WHERE id_sede_madre=:parrSel');
+                                            $query->bindParam(:parrSel,$parrSel);
+                                            $query->execute();
+                                            $sedes = $query->fetchAll();
+                                            
+                                            foreach($sedes as $sede): ?>
+                                                    <option value="<?= $sede['id_sede']; ?>"><?= $sede['nom_sede']; ?></option>
+                                            <?php endforeach; ?>
+                                            </select>                                             
+                                        </div><br>                
+                                        <div class="col-lg-3 margen" style="display: none;">
+                                            <select class="form-control" name="selectDepartamento">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $query->prepare('SELECT * FROM Departamentos');
+                                            $query->bindParam(:depSel,$depSel);
+                                            $query->execute();
+                                            $departamentos = $query->fetchAll();
+                                            
+                                            foreach($departamentos as $departamento): ?>
+                                                    <option value="<?= $departamento['id_departamento']; ?>"><?= $departamento['nom_departamento']; ?></option>
+                                            <?php endforeach; ?>
+                                            </select>                                            
+                                        </div><br>                                                                 
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col-lg-6 offset-3 margen">
+                                            <textarea class="form-control" name="comentarios_entrada" placeholder="Otras especificaciones" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                        </div>
+						
+                <!-- Modal Salida Hardware -->
+                <div class="modal-body" id="salidaHardware" style="display: none;">
+                <form id="f_salidaHardware" method="POST">
+                <div class="form-group" id="registro">
+                    <div class="row">
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="h_tipo_salida">Tipo</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="h_marca_salida">Marca</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="h_modelo_salida">Modelo</label>
+                            
+                        </div><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="h_bienes_salida">Bienes</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="h_asignado_salida">Asignado</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="h_encargado_salida">Encargado:</label>
+                            
+                        </div><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="h_municipio_salida">Municipio</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="h_parroquia_salida">Parroquia</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="h_sede_salida">Sede</label>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="h_representante_salida">Entregado por:</label>
+                            
+                        </div>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="h_pcpEntrada_salida">Entrada PCP</label>
+                            
+                        </div>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="h_pcpFechaEntrada_salida">Fecha de Entrada de PCP</label>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 margen">
+                            <input type="text"  class="form-control" name="h_receptor_salida" placeholder="Recibido por:" required="">
+                            
+                        </div>
+                        <div class="col-lg-4 margen">
+                            <input type="text"  class="form-control" name="h_pcp_salida" placeholder="Salida PCP" required="">
+                            
+                        </div>
+                        <div class="col-lg-4 margen">
+                            <input type="text" class="form-control" name="h_pcpFecha_salida" placeholder="Fecha de Salida de PCP" required="" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 offset-3 margen">
+                            <textarea class="form-control" name="h_comentarios_salida" placeholder="Comentarios finales" required="" rows="3"></textarea>
+                        </div>
+                    </div>  
+                </div>             
+            </div>
+                        <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Registrar</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+<!-- Estatus -->
+
+<div class="modal fade estatus" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="estatus">Estatus</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            
+        </div>
+        <div class="row">
+        <div class="col-lg-4" style="margin: 1em;">
+        <form>
+            <div class="input-group">
+                <input type="text" class="form-control searcher" placeholder="Búsqueda">
+                <button class="btn btn-default" type="submit">
+                <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </form>
+        </div>
+        
+        <div class="col-lg-4"></div>
+        <div class="alert alert-primary col-lg-3" role="alert" style="margin: 1em; transform: translateX(-3.5%); text-align: center;">
+        En cola
+        </div>
+        </div>
+    
+        <!-- Modal estatus visualización -->
+        <div class="modal-body" id="estatusInfo">
+                    <div class="row">
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="tipo_estatus">Tipo</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="marca_estatus">Marca</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="modelo_estatus">Modelo</label>
+                            
+                        </div><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="bienes_estatus">Bienes</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="asignado_estatus">Asignado</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="encargado_estatus">Encargado</label>
+                            
+                        </div><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="municipio_estatus">Municipio</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="parroquia_estatus">Parroquia</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="sede_estatus">Sede</label>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="representante_estatus">Entregado por:</label>
+                            
+                        </div>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="pcp_estatus">Entrada PCP</label>
+                            
+                        </div>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="fechaPCP_estatus">Fecha de Entrada de PCP</label>
+                            
+                        </div>
+                    </div>
+            <h3 id="mostrarComentariosEstatus">Comentarios relacionados al objeto</h3>
+            </div>
+
+            <!-- Modal estatus gestión -->
+			
+            <div class="modal-body" id="estatusGest" style="display: none;">
+                    <form id="f_updateStatus" method="POST">
+                    <div class="row">
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="tipo_estatus">Tipo</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="marca_estatus">Marca</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="modelo_estatus">Modelo</label>
+                            
+                        </div><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="bienes_estatus">Bienes</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="asignado_estatus">Asignado</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="encargado_estatus">Encargado</label>
+                            
+                        </div><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="municipio_estatus">Municipio</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="parroquia_estatus">Parroquia</label>
+                            
+                        </div><br>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="sede_estatus">Sede</label>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="representante_estatus">Entregado por:</label>
+                            
+                        </div>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="pcp_estatus">Entrada PCP</label>
+                            
+                        </div>
+                        <div class="col-lg-4 margen">
+                            <label type="text"  class="form-control" id="fechaPCP_estatus">Fecha de Entrada de PCP</label>
+                            
+                        </div>
+                    </div>
+                        <div class="row estatusEstados">
+                        <!-- <div class="dropdown show col-lg-3">
+                          <a class="btn dropdown-toggle" href="#" role="button" id="ddownEstados" data-toggle="dropdown" aria-haspopup="true">
+                            Estado
+                          </a>
+
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item drp-queue"  href="#">En cola</a>
+                            <a class="dropdown-item drp-stop"  href="#">En espera</a>
+                            <a class="dropdown-item drp-rev"  href="#">En proceso</a>
+                            <a class="dropdown-item drp-ended"  href="#">Terminado</a>
+                          </div> -->
+                        <div class="col-lg-12 btn-group margen" role="group">
+                        <button type="button" class="btn btn-warning btn-queue">En cola</button>
+                        <button type="button" class="btn btn-danger btn-stop">Detenido</button>
+                        <button type="button" class="btn btn-primary btn-rev">En revisión</button>
+                        <button type="button" class="btn btn-success btn-fin">Terminado</button>
+                        </div>
+                        </div>
+                    <div class="row">
+                    <div class="col-lg-6 offset-3 margen">
+                        <textarea class="form-control" name="comentarios_estatus" placeholder="Comentarios" required="" rows="5"></textarea>
+                    </div>
+                    </div>
+                </form>
+                </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnGuardarStatus" style="display: none;">Guardar</button>
+                        <a class="btn btn-primary" id="btnGestEstatus" href="#" role="button"> Gestionar &rarr;</a>
+                        </div>
+            </div>
+            </div>
+        </div>
+        </div>
+
+    <!-- Teléfonos -->
+	
+	<!-- Stock Teléfonos -->
+    
+    <div class="modal fade stockTelefonos" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ingreso_celulares">Ingreso de celulares</h5>
+                    <div id="procesado">
+                        Bloque de procesado
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                </div>
+                <nav class="navbar navbarMargin">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                    <a class="nav-link active" id="btnIngCel" href="#">Ingreso</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" id="btnAsigCel" href="#">Asignación</a>
+                    </li>
+                </ul>
+                </nav>
+                <div id="pestCelulares">
+                    <div class="row">
+                        <div class="col-lg-4 offset-3" id="fecha"></div>
+                    </div>
+                    
+                    <!-- Modal Ingreso Teléfonos -->
+    
+                    <div class="modal-body" id="ingresoTelefonos">
+                        <form id="f_entradaCelulares" action="telefonos.php" method="POST">
+                            <div class="form-group" id="registro">
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="tipo_ingCel" placeholder="Tipo" required="">
+                                        
+                                    </div>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="marca_ingCel" placeholder="Marca" required="">                                      
+                                    </div>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="modelo_ingCel" placeholder="Modelo" required="">
+                                        
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="sim_ingCel" placeholder="Sim" required="">
+                                        
+                                    </div>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="imeiSim_ingCel" placeholder="Imei Sim" required="">
+                                        
+                                    </div>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="puk_ingCel" placeholder="Puk" required="">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="numero_ingCel" placeholder="Nº telefónico" required="">
+                                        
+                                    </div>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="asignado_ingCel" placeholder="Asignado" required="">       
+                                    </div>
+                                    <div class="col-lg-4 margen">
+                                            <div class="dropdown">
+                                              <button class="btn btn-primary dropdown-toggle" type="button" id="ddownMunicipio" data-toggle="dropdown">
+                                                Asignaciones previas
+                                              <span class="caret"></span></button>
+                                              <ul class="dropdown-menu scrollable-menu" role="menu">
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                              </ul>
+                                            </div>                                           
+                                    </div>                                      
+                                </div>
+                                <div class="row">
+                                        <div class="col-lg-4 margen">
+                                            <select class="form-control" name="selectMunicipio">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $pdo = new PDO('mysql:host=localhost;dbname=oticdb', 'root', '');
+
+                                            $query->prepare('SELECT * FROM Municipios');
+                                            $query->execute();
+                                            $municipios = $query->fetchAll();
+                                            
+                                            foreach($municipios as $municipio): ?>
+                                                    <option value="<?= $municipio['id_municipio']; ?>"><?= $municipio['nom_municipio']; ?></option>
+                                            <?php endforeach;
+                                            $munSel = $_POST['selectMunicipio']
+                                            ?>
+                                            </select>                                           
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <select class="form-control" name="selectParroquia">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $query->prepare('SELECT * FROM Parroquias WHERE id_municipio_padre=:munSel');
+                                            $query->bindParam(:munSel,$munSel);
+                                            $query->execute();
+                                            $parroquias = $query->fetchAll();
+                                            
+                                            foreach($parroquias as $parroquia): ?>
+                                                    <option value="<?= $parroquia['id_parroquia']; ?>"><?= $parroquia['nom_parroquia']; ?></option>
+                                            <?php endforeach; ?>
+                                            </select>                                            
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <select class="form-control" name="selectSede">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $query->prepare('SELECT * FROM Sedes WHERE id_sede_madre=:parrSel');
+                                            $query->bindParam(:parrSel,$parrSel);
+                                            $query->execute();
+                                            $sedes = $query->fetchAll();
+                                            
+                                            foreach($sedes as $sede): ?>
+                                                    <option value="<?= $sede['id_sede']; ?>"><?= $sede['nom_sede']; ?></option>
+                                            <?php endforeach; ?>
+                                            </select>                                          
+                                        </div><br>                
+                                        <div class="col-lg-3 margen" style="display: none;">
+                                            <select class="form-control" name="selectDepartamento">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $query->prepare('SELECT * FROM Departamentos');
+                                            $query->bindParam(:depSel,$depSel);
+                                            $query->execute();
+                                            $departamentos = $query->fetchAll();
+                                            
+                                            foreach($departamentos as $departamento): ?>
+                                                    <option value="<?= $departamento['id_departamento']; ?>"><?= $departamento['nom_departamento']; ?></option>
+                                            <?php endforeach; ?>
+                                            </select>                                      
+                                        </div><br>                                                                 
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 offset-3 margen">
+                                        <textarea class="form-control" name="comentarios_ingCel" placeholder="Otras Especificaciones" required="" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Modal Asignación Teléfonos -->
+
+                    <div class="modal-body" id="asignacionTelefonos" style="display: none;">
+                        <form id="f_asignacionCelulares" method="POST">
+                            <div class="form-group" id="registro">
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <label input type="text"  class="form-control" id="tipo_asigCel">Tipo</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="marca_asigCel">Marca</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="modelo_asigCel">Modelo</label>
+                                        
+                                    </div><br>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="sim_asigCel">Sim</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="imeiSim_asigCel">Imei Sim</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="puk_asigCel">Puk</label>
+                                        
+                                    </div><br>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="municipio_actual_asigCel">Municipio</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="parroquia_actual_asigCel">Parroquia</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="sede_actual_asigCel">Sede</label>
+                                        
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="numero_asigCel">Nº telefónico</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="ultAsignado_asigCel">Último asignado</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                             <div class="dropdown">
+                                              <button class="btn btn-primary dropdown-toggle" type="button" id="ddownMunicipio" data-toggle="dropdown">
+                                                Asignaciones previas
+                                              <span class="caret"></span></button>
+                                              <ul class="dropdown-menu scrollable-menu" role="menu">
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                                <li><a>try1</a></li>
+                                              </ul>
+                                            </div>                                            
+                                    </div><br>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 offset-3 margen">
+                                        <textarea class="form-control" name="comentarios_salCel" placeholder="Otras especificaciones" required="" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                <h2 class="col-lg-8 margen" id="asignacion_celulares">Asignación</h2>
+                                <div class="wrapper">
+                                    <div class="switch_box box_1 col-lg-4 margen">
+                                        <input type="checkbox" name="inop_asigCel" class="switch_1 t_operable">
+                                    </div>
+                                <h3>Inoperable</h3>
+                                </div>
+                                </div>  
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <input input type="text"  id="inputAsig" class="form-control" name="ci_asigCel" placeholder="C.I." required="">
+                                        
+                                    </div>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text" id="inputAsig" class="form-control" name="nombre_asigCel" placeholder="Nombre" required="">
+                                        
+                                    </div>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text" id="inputAsig" class="form-control" name="apellido_asigCel" placeholder="Apellido" required="">
+                                    
+                                    </div>
+                                </div><br>
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <input type="text" id="inputAsig" class="form-control" name="municipio_asigCel" placeholder="Municipio" required="">
+                                        
+                                    </div>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text" id="inputAsig" class="form-control" name="parroquia_asigCel" placeholder="Parroquia" required="">
+                                        
+                                    </div>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text" id="inputAsig" class="form-control" name="sede_asigCel" placeholder="Sede" required="">
+                                        
+                                    </div>
+                                </div>                       
+                            </div>
+                            
+                        </form>
+                        
+                    </div>
+                </div>
+             <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+                
+            </div>
+        </div>
+        </div>
+		
+	<!-- Soporte Teléfonos -->
+
+    <div class="modal fade soporteTelefonos" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="soporte_celulares">Soporte de celulares</h5>
+                    <div id="procesado">
+                        Bloque de procesado
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                </div>
+                <nav class="navbar navbarMargin">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                    <a class="nav-link active" id="btnEntCel" href="#">Entrada</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" id="btnSalCel" href="#">Salida</a>
+                    </li>
+                </ul>
+                </nav>
+                <div id="pestCelulares">
+                    <div class="row">
+                        <div class="col-lg-8 nOrden">
+                            <h4>Número de Orden:</h4>
+                            <span><h2>000-000-000-0</h2></span>
+                        </div>
+                        <div class="col-lg-4 offset-3" id="fecha"></div>
+                    </div>
+                    
+                    <!-- Modal Entrada Teléfonos -->
+    
+                    <div class="modal-body" id="entradaTelefonos">
+                        <form id="f_entradaTelefonos" method="POST">
+                            <div class="form-group" id="registro">
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="tipo_entCel" placeholder="Tipo" required="">
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="marca_entCel" placeholder="Marca" required="">
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="modelo_entCel" placeholder="Modelo" required="">
+                                        
+                                    </div><br>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="sim_entCel" placeholder="Sim" required="">
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="imeiSim_entCel" placeholder="Imei Sim" required="">
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="puk_entCel" placeholder="Puk" required="">
+                                        
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="numero_entCel" placeholder="Nº telefónico" required="">
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="asignado_entCel" placeholder="Asignado" required="">
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <input type="text"  class="form-control" name="previas_entCel" placeholder="Asignaciones Previas" required="">
+                                        
+                                    </div><br>
+                                </div>
+                                <div class="row">
+                                        <div class="col-lg-4 margen">
+                                            <select class="form-control" name="selectMunicipio">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $pdo = new PDO('mysql:host=localhost;dbname=oticdb', 'root', '');
+
+                                            $query->prepare('SELECT * FROM Municipios');
+                                            $query->execute();
+                                            $municipios = $query->fetchAll();
+                                            
+                                            foreach($municipios as $municipio): ?>
+                                                    <option value="<?= $municipio['id_municipio']; ?>"><?= $municipio['nom_municipio']; ?></option>
+                                            <?php endforeach;
+                                            $munSel = $_POST['selectMunicipio']
+                                            ?>
+                                            </select>    
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <select class="form-control" name="selectParroquia">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $query->prepare('SELECT * FROM Parroquias WHERE id_municipio_padre=:munSel');
+                                            $query->bindParam(:munSel,$munSel);
+                                            $query->execute();
+                                            $parroquias = $query->fetchAll();
+                                            
+                                            foreach($parroquias as $parroquia): ?>
+                                                    <option value="<?= $parroquia['id_parroquia']; ?>"><?= $parroquia['nom_parroquia']; ?></option>
+                                            <?php endforeach; ?>
+                                            </select>                                           
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <select class="form-control" name="selectSede">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $query->prepare('SELECT * FROM Sedes WHERE id_sede_madre=:parrSel');
+                                            $query->bindParam(:parrSel,$parrSel);
+                                            $query->execute();
+                                            $sedes = $query->fetchAll();
+                                            
+                                            foreach($sedes as $sede): ?>
+                                                    <option value="<?= $sede['id_sede']; ?>"><?= $sede['nom_sede']; ?></option>
+                                            <?php endforeach; ?>
+                                            </select>                                           
+                                        </div><br>                
+                                        <div class="col-lg-3 margen" style="display: none;">
+                                            <select class="form-control" name="selectDepartamento">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $query->prepare('SELECT * FROM Departamentos');
+                                            $query->bindParam(:depSel,$depSel);
+                                            $query->execute();
+                                            $departamentos = $query->fetchAll();
+                                            
+                                            foreach($departamentos as $departamento): ?>
+                                                    <option value="<?= $departamento['id_departamento']; ?>"><?= $departamento['nom_departamento']; ?></option>
+                                            <?php endforeach; ?>
+                                            </select>                                           
+                                        </div><br>                                                                 
+                                    </div> 
+                                <div class="row">
+                                    <div class="col-lg-6 offset-3 margen">
+                                        <textarea class="form-control" name="comentarios_entCel" placeholder="Otras Especificaciones" required="" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Modal Salida Teléfonos -->
+
+                    <div class="modal-body" id="salidaTelefonos" style="display: none;">
+                        <form id="f_salidaTelefonos" method="POST">
+                            <div class="form-group" id="registro">
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <label input type="text"  class="form-control" id="tipo_salCel">Tipo</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="marca_salCel">Marca</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="modelo_salCel">Modelo</label>
+                                        
+                                    </div><br>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="sim_salCel">Sim</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="imeiSim_salCel">Imei Sim</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="puk_salCel">Puk</label>
+                                        
+                                    </div><br>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="municipio_salCel">Municipio</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="parroquia_salCel">Parroquia</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="sede_salCel">Sede</label>
+                                        
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="numero_salCel">Nº telefónico</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="ultAsignado_salCel">Último asignado</label>
+                                        
+                                    </div><br>
+                                    <div class="col-lg-4 margen">
+                                        <label type="text"  class="form-control" id="previas_salCel">Asignaciones previas</label>
+                                        
+                                    </div>
+                                </div>
+								<div class="row">
+									<div class="col-lg-4 margen">
+										<input type="text"  class="form-control" name="receptor_salCel" placeholder="Recibido por:" required="">
+										
+									</div>
+									<div class="col-lg-4 margen">
+										<input type="text"  class="form-control" name="pcp_salCel" placeholder="Salida PCP" required="">
+										
+									</div>
+									<div class="col-lg-4 margen">
+										<input type="text"  class="form-control" name="pcpFecha_salCel" placeholder="Fecha de Salida de PCP" required="" disabled>
+									</div>
+								</div>
+                                <div class="row">
+                                    <div class="col-lg-6 offset-3 margen">
+                                        <textarea class="form-control" name="comentarios_salCel" placeholder="Otras especificaciones" required="" rows="3"></textarea>
+                                    </div>
+                                </div>                          
+                            </div>
+                            
+                        </form>
+                        
+                    </div>
+                </div>
+             <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+                
+            </div>
+        </div>
+        </div>
+		
+<!-- Pendrives -->
+
+<div class="modal fade pendrives" id="reset" tabindex="-1" role="dialog" aria-labelledby="pendrives" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="pendrives">Pendrives</h5>
+            <div id="procesado">
+                Bloque de procesado               
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            
+        </div>
+        <div class="row">
+            <div class="col-lg-8" id="fecha"></div>
+        </div>
+        <div class="modal-body pens">
+            <label>Revisados hoy:<span id="pendrivesContador"> 0 </span></label>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success">&#43;</button>
+            <button type="button" class="btn btn-danger">&#45;</button>
+            <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="MenuIcon">
+<div id="MenuLine"></div>
+</div>
+<div id="Menu">
+	<ul class="menuPrincipal">
+		<li>
+			<h3 id="menuHardware">Hardware</h3>
+			<ul class="menuHardwareAcc">
+			<li data-toggle="modal" data-target=".stock"><h4>Stock</h4></li>
+			<li data-toggle="modal" data-target=".soporteHardware"><h4>Soporte</h4></li>
+			</ul>
+		</li>
+		<li data-toggle="modal" data-target=".estatus"><h3>Estatus</h3></li>
+		<li>
+			<h3 id="menuTelefonos">Teléfonos</h3>
+			<ul class="menuTelefonosAcc">
+			<li data-toggle="modal" data-target=".stockTelefonos"><h4>Stock</h4></li>
+			<li data-toggle="modal" data-target=".soporteTelefonos"><h4>Soporte</h4></li>
+			</ul>
+		</li>
+		<li data-toggle="modal" data-target=".pendrives"><h3>Pendrives</h3>
+		<li data-toggle="modal" data-target=".bd-example-modal-lg"><h3>Stock</h3></li>
+		<!-- <li><div class="btn" data-toggle="modal" data-target=".bd-example-modal-lg">Reportes</div></li> -->
+		<li id="close"><img src="sources/images/Close.png" width="25px" height="25px" alt=""></li>
+	</ul>
+</div>
+</div>
+<footer id="pie">© Secretaría de Salud del Estado Zulia. Todos los derechos reservados. Socializando la Salud.
+</footer>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="sources/js/jquery-3.3.1.min.js"></script>
+<script src="sources/js/popper.js"></script>
+<script src="sources/js/bootstrap.min.js"></script>
+<script src="sources/js/main.js" type="text/javascript"></script>
+</body>
+</html>
