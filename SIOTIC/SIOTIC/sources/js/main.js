@@ -125,13 +125,6 @@ function ingresar_datos(){
         console.log("error");
     });
 
-
-/**Usuario Login**/
-$(".usuarioLogin").click(
-  function(){
-  $('.login').modal('show');
-  }
-);
 /**Animaciones**/
 $("#btnIngHard").click(
   function(){
@@ -263,8 +256,25 @@ $('#buscador').focusout(
   });
 /***END***/
 
+/*Operabilidad checkboxes*/
+$('#h_operable').change(
+  function(){
+  if ($(this).prop('checked'))
+    $("[id=hInputAsig]").prop('disabled',true);
+  else
+    $("[id=hInputAsig]").prop('disabled',false);
+});
+
+$('#t_operable').change(
+  function(){
+  if ($(this).prop('checked'))
+    $('[id=tInputAsig]').prop('disabled',true);
+  else
+    $('[id=tInputAsig]').prop('disabled',false);
+});
+
 /* Actualizar estatus */
-$('.enCola').click(function() {
+$('#enCola').click(function(){
 
 $.ajax({
   type: "POST",
@@ -273,7 +283,7 @@ $.ajax({
   });    
 
 });
-$('.detenido').click(function() {
+$('#detenido').click(function() {
 
 $.ajax({
   type: "POST",
@@ -282,7 +292,7 @@ $.ajax({
   });    
 
 });
-$('.rev').click(function() {
+$('#rev').click(function() {
 
 $.ajax({
   type: "POST",
@@ -291,7 +301,7 @@ $.ajax({
   });    
 
 });
-$('.end').click(function() {
+$('#end').click(function() {
 
 $.ajax({
   type: "POST",
@@ -300,6 +310,7 @@ $.ajax({
   });    
 
 });
+
 }
 
 

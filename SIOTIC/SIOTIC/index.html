@@ -3,8 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="sources/css/bootstrap.min.css">
         <link rel="stylesheet" href="sources/css/estilo.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
@@ -44,7 +42,6 @@
                     </div>
                 </div>
             </div>
-            
 
             <!-- Modal Stock -->
 			
@@ -72,6 +69,11 @@
                                 <li class="nav-item">
                                 <a class="nav-link" id="btnAsigHard" href="#">Asignación</a>
                                 </li>
+                                <form>
+                                <li class="nav-item">
+                                <input type="text" class="form-control" placeholder="Búsqueda">
+                                </li>
+                                </form>
                             </ul>
                             </nav>
 							
@@ -98,7 +100,7 @@
                                             
                                         </div><br>
                                         <div class="col-lg-4 margen">
-                                            <input type="text"  class="form-control" name="h_asignado_ingreso" placeholder="Asignado:" disabled>
+                                            <input type="text"  class="form-control" name="h_estado_ingreso" placeholder="Estado de ingreso">
                                         </div><br>
                                         <div class="col-lg-4 margen">
                                             <input type="text"  class="form-control" name="h_fechaEnt_ingreso" placeholder="Fecha de Entrada" disabled>   
@@ -110,6 +112,8 @@
 						
                         <!-- Modal Asignación de Hardware -->
                         <div class="modal-body" id="asignacionStock" style="display: none;">
+                                <div class="row">
+                                </div>
                                 <form id="f_asignacionStock" method="POST">
                                 <div class="form-group">
                                     <div class="row">
@@ -142,7 +146,7 @@
                                 <h2 class="col-lg-8 margen" id="asignacion_celulares">Asignación</h2>
                                 <div class="wrapper">
                                     <div class="switch_box box_1 col-lg-4 margen">
-                                        <input type="checkbox" name="inop_asigHard" class="switch_1 h_operable">
+                                        <input type="checkbox" id="h_operable" class="switch_1">
                                     </div>
                                 <h3>Inoperable</h3>
                                 </div>
@@ -160,13 +164,87 @@
                                         <input type="text" id="hInputAsig" class="form-control" name="apellido_asig_h" placeholder="Apellido" required="">
                                     
                                     </div>
-                                </div><br>  
+                                </div>
+                                <div class="row">
+                                        <div class="col-lg-4 margen">
+                                            <select class="form-control" name="selectMunicipio">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $pdo = new PDO('mysql:host=localhost;dbname=oticdb', 'root', '');
+
+                                            $query->prepare('SELECT * FROM Municipios');
+                                            $query->execute();
+                                            $municipios = $query->fetchAll();
+                                            
+                                            foreach($municipios as $municipio): ?>
+                                                    <option value="<?= $municipio['id_municipio']; ?>"><?= $municipio['nom_municipio']; ?></option>
+                                            <?php endforeach;
+                                            $munSel = $_POST['selectMunicipio']
+                                            ?>
+                                            </select>                                           
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <select class="form-control" name="selectParroquia">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $query->prepare('SELECT * FROM Parroquias WHERE id_municipio_padre=:munSel');
+                                            $query->bindParam(:munSel,$munSel);
+                                            $query->execute();
+                                            $parroquias = $query->fetchAll();
+                                            
+                                            foreach($parroquias as $parroquia): ?>
+                                                    <option value="<?= $parroquia['id_parroquia']; ?>"><?= $parroquia['nom_parroquia']; ?></option>
+                                            <?php endforeach; ?>
+                                            </select>                                            
+                                        </div><br>
+                                        <div class="col-lg-4 margen">
+                                            <select class="form-control" name="selectSede">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $query->prepare('SELECT * FROM Sedes WHERE id_sede_madre=:parrSel');
+                                            $query->bindParam(:parrSel,$parrSel);
+                                            $query->execute();
+                                            $sedes = $query->fetchAll();
+                                            
+                                            foreach($sedes as $sede): ?>
+                                                    <option value="<?= $sede['id_sede']; ?>"><?= $sede['nom_sede']; ?></option>
+                                            <?php endforeach; ?>
+                                            </select>                                          
+                                        </div><br>                
+                                        <div class="col-lg-3 margen" style="display: none;">
+                                            <select class="form-control" name="selectDepartamento">
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <option>try</option>
+                                            <?php
+                                            $query->prepare('SELECT * FROM Departamentos');
+                                            $query->bindParam(:depSel,$depSel);
+                                            $query->execute();
+                                            $departamentos = $query->fetchAll();
+                                            
+                                            foreach($departamentos as $departamento): ?>
+                                                    <option value="<?= $departamento['id_departamento']; ?>"><?= $departamento['nom_departamento']; ?></option>
+                                            <?php endforeach; ?>
+                                            </select>                                      
+                                        </div><br>                                                                 
                                 </div> 
-                                </form>    
+                                </div> 
+   
                         </div>
                         <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Registrar</button>
                         </div>
+                        </form>                     
                     </div>
                 </div>   
             </div>
@@ -433,8 +511,8 @@
         <div class="col-lg-4" style="margin: 1em;">
         <form>
             <div class="input-group">
-                <input type="text" class="form-control searcher" placeholder="Búsqueda">
-                <button class="btn btn-default" type="submit">
+                <input type="text" class="form-control" placeholder="Búsqueda">
+                <button class="btn btn-default searcher" type="submit">
                 <i class="fa fa-search"></i>
                 </button>
             </div>
@@ -592,12 +670,12 @@
                         <textarea class="form-control" name="comentarios_estatus" placeholder="Comentarios" required="" rows="5"></textarea>
                     </div>
                     </div>
-                </form>
                 </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="btnGuardarStatus" style="display: none;">Guardar</button>
-                        <a class="btn btn-primary" id="btnGestEstatus" href="#" role="button"> Gestionar &rarr;</a>
+                        <a class="btn btn-primary" id="btnGestEstatus" href="#" role="button" disabled> Gestionar &rarr;</a>
                         </div>
+                </form>
             </div>
             </div>
         </div>
@@ -672,7 +750,7 @@
                                         
                                     </div>
                                     <div class="col-lg-4 margen">
-                                        <input type="text"  class="form-control" name="asignado_ingCel" placeholder="Asignado" disabled>       
+                                        <input type="text"  class="form-control" name="estado_ingCel" placeholder="Estado de ingreso">       
                                     </div>
                                     <div class="col-lg-4 margen">
                                         <input type="text"  class="form-control" name="fechaEnt_ingCel" placeholder="Fecha de entrada" disabled>                                         
@@ -848,22 +926,22 @@
                                 <h2 class="col-lg-8 margen" id="asignacion_celulares">Asignación</h2>
                                 <div class="wrapper">
                                     <div class="switch_box box_1 col-lg-4 margen">
-                                        <input type="checkbox" name="inop_asigCel" class="switch_1 t_operable">
+                                        <input type="checkbox" id="t_operable" class="switch_1">
                                     </div>
                                 <h3>Inoperable</h3>
                                 </div>
                                 </div>  
                                 <div class="row">
                                     <div class="col-lg-4 margen">
-                                        <input input type="text"  id="inputAsig" class="form-control" name="ci_asigCel" placeholder="C.I." required="">
+                                        <input input type="text"  id="tInputAsig" class="form-control" name="ci_asigCel" placeholder="C.I." required="">
                                         
                                     </div>
                                     <div class="col-lg-4 margen">
-                                        <input type="text" id="inputAsig" class="form-control" name="nombre_asigCel" placeholder="Nombre" required="">
+                                        <input type="text" id="tInputAsig" class="form-control" name="nombre_asigCel" placeholder="Nombre" required="">
                                         
                                     </div>
                                     <div class="col-lg-4 margen">
-                                        <input type="text" id="inputAsig" class="form-control" name="apellido_asigCel" placeholder="Apellido" required="">
+                                        <input type="text" id="tInputAsig" class="form-control" name="apellido_asigCel" placeholder="Apellido" required="">
                                     
                                     </div>
                                 </div><br>
@@ -941,15 +1019,12 @@
                                         </div><br>                                                                 
                                 </div>                      
                             </div>
-                            
-                        </form>
-                        
                     </div>
                 </div>
              <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Registrar</button>
             </div>
-                
+            </form>     
             </div>
         </div>
         </div>
@@ -1198,15 +1273,13 @@
                                     </div>
                                 </div>                          
                             </div>
-                            
-                        </form>
                         
                     </div>
                 </div>
              <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Registrar</button>
             </div>
-                
+            </form>    
             </div>
         </div>
         </div>
@@ -1272,9 +1345,6 @@
 </div>
 <footer id="pie">© Secretaría de Salud del Estado Zulia. Todos los derechos reservados. Socializando la Salud.
 </footer>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="sources/js/jquery-3.3.1.min.js"></script>
 <script src="sources/js/popper.js"></script>
 <script src="sources/js/bootstrap.min.js"></script>

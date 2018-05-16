@@ -126,6 +126,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`Estatus` (
   `id_estatus` INT NOT NULL ,
   `fallas` VARCHAR(200) NULL ,
   `comentarios` VARCHAR(200) NULL ,
+  `estado_entrada_unidad` INT NULL ,
   `cantidad_entradas_unidad` INT NULL ,
   `estado_actual_unidad` INT NOT NULL ,
   PRIMARY KEY (`id_estatus`) )
